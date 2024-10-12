@@ -19,7 +19,7 @@ app.all('/', (req, res)=>{
         speechModel:'phone_call',
         speechTimeout:'auto'
     })
-    response.say('This is from Node js');
+    // response.say('This is from Node js');
     gather.say('Tell me a new order');
     res.send(response.toString());
 })
@@ -32,7 +32,7 @@ app.all('/results',(req, res)=>{
     if(words.every(word=>userData.includes(word))){
         twiml.say('Yes, what would you like?')
     }twiml.say('Could you please repeat, I could not understand?')
-    
+    res.send(twiml.toString());
 })
 app.listen(port, ()=>{
     console.log(`server is running on port ${port}`);
