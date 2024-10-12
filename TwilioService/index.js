@@ -1,16 +1,19 @@
-import express from 'express'
-import ngrok from 'ngrok'
+// import express from 'express'
+// import { twiml } from 'twilio'
+// import TwiML from 'twilio/lib/twiml/TwiML'
+const express = require('express');
 const app = express()
 const port = 3000
-
-app.get('/', (req, res)=>{
-    res.type('html')
-    res.send('<h1>Hello World</h1>')
+const VoiceResponse = require('twilio').twiml.VoiceResponse
+app.all('/', (req, res)=>{
+    res.type('xml')
+    const response = new VoiceResponse();
+    // console.log(response);
+    response.say('This is from Node js');
+    res.send(response.toString());
 })
+// app.post()
 
 app.listen(port, ()=>{
     console.log(`server is running on port ${port}`);
-    ngrok.connect(port).then(ngrokURL => {
-        console.log('ngrokURL');
-    }).catch(console.log("can;t"))
 })
