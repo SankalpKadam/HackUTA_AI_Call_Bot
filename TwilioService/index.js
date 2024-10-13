@@ -34,7 +34,7 @@ const callSchema = new mongoose.Schema({
     phone_number: String,
     call_start_time: { type: Date, required: true },
     call_end_time: { type: Date, required: true },
-    call_duration: Number, // in minutes
+    call_duration: String, // in minutes
 }, { collection: 'call' });
 
 const Call = mongoose.model("call", callSchema);
@@ -79,6 +79,7 @@ app.all('/', (req, res) => {
             res.send(response.toString())
             break;
         case 'ask-item':
+            response.say('Do you want anything else?')
             const gatherItem = response.gather({
                 input: 'speech',
                 action: '/item',
@@ -88,6 +89,7 @@ app.all('/', (req, res) => {
                 speechTimeout: 'auto'
             })
         case 'ask-anything-else':
+
             const anything = response.gather({
                 input: 'speech',
                 action: '/anything',
@@ -134,7 +136,7 @@ app.all('/results', (req, res) => {
     const twiml = new VoiceResponse();
     words = ['burger']
     if (words.every(word => userData.includes(word))) {
-        twiml.say('Yes, what would you like?')
+        // twiml.say('Yes, what would you like?')
         // twiml.gather
         // res.redirect(url.format({
         //     pathname:'/gpt',
@@ -163,6 +165,8 @@ app.all('/results', (req, res) => {
     } else {
 
         twiml.say('We only serve burgers right now. Sorry please call again later.')
+        twiml.hangup()
+        delete sessions[req.body.From]
         res.send(twiml.toString())
     }
 })
