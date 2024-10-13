@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
 	Table,
 	TableBody,
@@ -19,6 +19,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Eye } from "lucide-react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 type Order = {
 	id: string;
@@ -55,114 +56,114 @@ const initialOrders: Order[] = [
 			{ name: "Soda", price: 5 },
 		],
 	},
-	{
-		id: "126",
-		time: "2023-06-10 14:30",
-		customerName: "Aryan",
-		items: [
-			{ name: "Cheese Burger", price: 15 },
-			{ name: "French Fries", price: 15 },
-		],
-	},
-	{
-		id: "127",
-		time: "2023-06-10 15:00",
-		customerName: "Shashwat",
-		items: [
-			{ name: "Veggie Pizza", price: 20 },
-			{ name: "Salad", price: 10 },
-		],
-	},
-	{
-		id: "128",
-		time: "2023-06-10 15:30",
-		customerName: "Sankalp",
-		items: [
-			{ name: "Chicken Wings", price: 18 },
-			{ name: "Soda", price: 5 },
-		],
-	},
-	{
-		id: "129",
-		time: "2023-06-10 14:30",
-		customerName: "Aryan",
-		items: [
-			{ name: "Cheese Burger", price: 15 },
-			{ name: "French Fries", price: 15 },
-		],
-	},
-	{
-		id: "130",
-		time: "2023-06-10 15:00",
-		customerName: "Shashwat",
-		items: [
-			{ name: "Veggie Pizza", price: 20 },
-			{ name: "Salad", price: 10 },
-		],
-	},
-	{
-		id: "131",
-		time: "2023-06-10 15:30",
-		customerName: "Sankalp",
-		items: [
-			{ name: "Chicken Wings", price: 18 },
-			{ name: "Soda", price: 5 },
-		],
-	},
-	{
-		id: "132",
-		time: "2023-06-10 14:30",
-		customerName: "Aryan",
-		items: [
-			{ name: "Cheese Burger", price: 15 },
-			{ name: "French Fries", price: 15 },
-		],
-	},
-	{
-		id: "133",
-		time: "2023-06-10 15:00",
-		customerName: "Shashwat",
-		items: [
-			{ name: "Veggie Pizza", price: 20 },
-			{ name: "Salad", price: 10 },
-		],
-	},
-	{
-		id: "134",
-		time: "2023-06-10 15:30",
-		customerName: "Sankalp",
-		items: [
-			{ name: "Chicken Wings", price: 18 },
-			{ name: "Soda", price: 5 },
-		],
-	},
-	{
-		id: "135",
-		time: "2023-06-10 14:30",
-		customerName: "Aryan",
-		items: [
-			{ name: "Cheese Burger", price: 15 },
-			{ name: "French Fries", price: 15 },
-		],
-	},
-	{
-		id: "136",
-		time: "2023-06-10 15:00",
-		customerName: "Shashwat",
-		items: [
-			{ name: "Veggie Pizza", price: 20 },
-			{ name: "Salad", price: 10 },
-		],
-	},
-	{
-		id: "137",
-		time: "2023-06-10 15:30",
-		customerName: "Sankalp",
-		items: [
-			{ name: "Chicken Wings", price: 18 },
-			{ name: "Soda", price: 5 },
-		],
-	},
+	// {
+	// 	id: "126",
+	// 	time: "2023-06-10 14:30",
+	// 	customerName: "Aryan",
+	// 	items: [
+	// 		{ name: "Cheese Burger", price: 15 },
+	// 		{ name: "French Fries", price: 15 },
+	// 	],
+	// },
+	// {
+	// 	id: "127",
+	// 	time: "2023-06-10 15:00",
+	// 	customerName: "Shashwat",
+	// 	items: [
+	// 		{ name: "Veggie Pizza", price: 20 },
+	// 		{ name: "Salad", price: 10 },
+	// 	],
+	// },
+	// {
+	// 	id: "128",
+	// 	time: "2023-06-10 15:30",
+	// 	customerName: "Sankalp",
+	// 	items: [
+	// 		{ name: "Chicken Wings", price: 18 },
+	// 		{ name: "Soda", price: 5 },
+	// 	],
+	// },
+	// {
+	// 	id: "129",
+	// 	time: "2023-06-10 14:30",
+	// 	customerName: "Aryan",
+	// 	items: [
+	// 		{ name: "Cheese Burger", price: 15 },
+	// 		{ name: "French Fries", price: 15 },
+	// 	],
+	// },
+	// {
+	// 	id: "130",
+	// 	time: "2023-06-10 15:00",
+	// 	customerName: "Shashwat",
+	// 	items: [
+	// 		{ name: "Veggie Pizza", price: 20 },
+	// 		{ name: "Salad", price: 10 },
+	// 	],
+	// },
+	// {
+	// 	id: "131",
+	// 	time: "2023-06-10 15:30",
+	// 	customerName: "Sankalp",
+	// 	items: [
+	// 		{ name: "Chicken Wings", price: 18 },
+	// 		{ name: "Soda", price: 5 },
+	// 	],
+	// },
+	// {
+	// 	id: "132",
+	// 	time: "2023-06-10 14:30",
+	// 	customerName: "Aryan",
+	// 	items: [
+	// 		{ name: "Cheese Burger", price: 15 },
+	// 		{ name: "French Fries", price: 15 },
+	// 	],
+	// },
+	// {
+	// 	id: "133",
+	// 	time: "2023-06-10 15:00",
+	// 	customerName: "Shashwat",
+	// 	items: [
+	// 		{ name: "Veggie Pizza", price: 20 },
+	// 		{ name: "Salad", price: 10 },
+	// 	],
+	// },
+	// {
+	// 	id: "134",
+	// 	time: "2023-06-10 15:30",
+	// 	customerName: "Sankalp",
+	// 	items: [
+	// 		{ name: "Chicken Wings", price: 18 },
+	// 		{ name: "Soda", price: 5 },
+	// 	],
+	// },
+	// {
+	// 	id: "135",
+	// 	time: "2023-06-10 14:30",
+	// 	customerName: "Aryan",
+	// 	items: [
+	// 		{ name: "Cheese Burger", price: 15 },
+	// 		{ name: "French Fries", price: 15 },
+	// 	],
+	// },
+	// {
+	// 	id: "136",
+	// 	time: "2023-06-10 15:00",
+	// 	customerName: "Shashwat",
+	// 	items: [
+	// 		{ name: "Veggie Pizza", price: 20 },
+	// 		{ name: "Salad", price: 10 },
+	// 	],
+	// },
+	// {
+	// 	id: "137",
+	// 	time: "2023-06-10 15:30",
+	// 	customerName: "Sankalp",
+	// 	items: [
+	// 		{ name: "Chicken Wings", price: 18 },
+	// 		{ name: "Soda", price: 5 },
+	// 	],
+	// },
 	// Add more orders as needed
 ];
 
@@ -191,6 +192,19 @@ export default function ViewOrders() {
 		const tax = subtotal * 0.1; // Assuming 10% tax
 		return (subtotal + tax).toFixed(2);
 	};
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/getData");
+        setOrders(response.data);
+      } catch (error) {
+        console.error("Error fetching orders: ", error);
+      }
+    };
+
+    fetchOrders();
+  }, []);
 
 	return (
 		<div className="min-h-screen bg-gray-900 text-white p-8">

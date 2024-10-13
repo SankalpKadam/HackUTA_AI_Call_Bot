@@ -3,7 +3,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://sst0557mavs:Hack_UTA_2024@hackuta.q1y43.mongodb.net/?retryWrites=true&w=majority&appName=HackUTA";
 const mongoose = require("mongoose");
 const cors = require('cors')
-app.use(cors())
+// app.use(cors())
 
 mongoose
     .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -33,6 +33,7 @@ const express = require('express');
 const urlencoded = require('body-parser').urlencoded;
 const app = express()
 app.use(urlencoded({ extended: false }))
+app.use(cors())
 const OpenAI = require("openai");
 require("dotenv").config();
 
