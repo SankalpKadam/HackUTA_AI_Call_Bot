@@ -43,7 +43,7 @@ With **BotKonnect**, businesses can instantly connect with customers through AI-
 ## 📝 How to Get Started
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/your-username/BotKonnect.git
+   git clone https://github.com/SankalpKadam/HackUTA_AI_Call_Bot
 2. Set up .env file:
    Add your Twilio and OpenAI API keys to the .env file.
 3. Run the application:
