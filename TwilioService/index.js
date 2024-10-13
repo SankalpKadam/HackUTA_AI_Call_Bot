@@ -35,9 +35,9 @@ const callSchema = new mongoose.Schema({
     call_start_time: { type: Date, required: true },
     call_end_time: { type: Date, required: true },
     call_duration: Number, // in minutes
-  },{collection:'call'});
-  
-const Call = mongoose.model("call", callSchema);
+}, { collection: 'call' });
+
+const Call = mongoose.model("call", callSchema);
 
 const gptReq = require('./gpt-request').chatReq
 const express = require('express');
@@ -77,21 +77,34 @@ app.all('/', (req, res) => {
 app.all('/results', (req, res) => {
     // const userData = req.body.SpeechResult.toLowerCase();
     // console.log(userData);
-    // const twiml = new VoiceResponse();
-    // words = ['order', 'place']
-    // if (words.every(word => userData.includes(word))) {
+    const twiml = new VoiceResponse();
+    words = ['order', 'place']
+    if (words.every(word => "I want to place an order".includes(word))) {
         // twiml.say('Yes, what would you like?')
-        res.redirect(url.format({
-            pathname:'/gpt',
-            query:{
-                'prompt': 'I want to place an order'
-            }
-        }));
-    // } else {
+        // res.redirect(url.format({
+        //     pathname:'/gpt',
+        //     query:{
+        //         'prompt': 'I want to place an order'
+        //     }
+        // }));
+        new Promise((resolve, reject) => {
+            twiml.say('Yes, what would you like')
+            console.log('said');
+            resolve('I want to place an order')
 
-    //     twiml.say('Could you please repeat, I could not understand?')
-    //     res.send(twiml.toString())
-    // }
+        }).then((result) => {
+            res.redirect(url.format({
+                pathname: '/gpt',
+                query: {
+                    'prompt': result
+                }
+            }));
+        })
+    } else {
+
+        twiml.say('Could you please repeat, I could not understand?')
+        res.send(twiml.toString())
+    }
 })
 
 async function connectToDatabase() {
@@ -110,7 +123,7 @@ app.get('/getData', async (req, res) => {
     }
 })
 
-app.get('/callData',async (req, res)=>{
+app.get('/callData', async (req, res) => {
     try {
         const orders = await Call.find({});
         res.json(orders);
@@ -150,10 +163,23 @@ app.all('/gpt', async (req, res) => {
     // res.send(JSON.stringify({
     //     message: cache
     // }))
-    // const twiml = new VoiceResponse();
+    const twiml = new VoiceResponse();
     // twiml.say(`This is ${result}`)
-    res.send()
-    res.redirect('/')
+    new Promise((resolve, reject) => {
+        twiml.say(result)
+        console.log('said');
+        resolve('I want to place an order')
+
+    }).then((result) => {
+        // res.redirect(url.format({
+        //     pathname: '/',
+        //     query: {
+        //         'prompt': result
+        //     }
+        // }));
+        res.redirect('/')
+    })
+    // res.send(twiml.toString())
 
 })
 
