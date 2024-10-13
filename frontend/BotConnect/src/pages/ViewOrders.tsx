@@ -21,6 +21,9 @@ import { Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+// const GET_DATA_URL = "https://f446-2603-8080-8f0-b730-75a5-419f-c6a6-892b.ngrok-free.app/getData"
+const GET_DATA_URL = "http://localhost:3000/getData"
+
 type Order = {
   order_id: string;
   name: string;
@@ -196,16 +199,15 @@ export default function ViewOrders() {
 		return (subtotal + tax).toFixed(2);
 	};
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/getData");
-        setOrders(response.data);
-      } catch (error) {
-        console.error("Error fetching orders: ", error);
-      }
+	useEffect(() => {
+		const fetchOrders = async () => {
+		try {
+			const response = await axios.get(GET_DATA_URL);
+			setOrders(response.data);
+		} catch (error) {
+			console.error("Error fetching orders: ", error);
+		}
     };
-
     fetchOrders();
   }, []);
 

@@ -44,6 +44,9 @@ const dt: CallData[] = [
   { week: "Week 4", calls: 1800, call_duration: "7 min", call_start_time: new Date() },
 ];
 
+// const GET_CALL_DATA_URL = "https://6274-2603-8080-8f0-b730-75a5-419f-c6a6-892b.ngrok-free.app/callData"
+const GET_CALL_DATA_URL = "http://localhost:3000/callData"
+
 // Component for metric cards
 const MetricCard = ({ title, value, icon: Icon }: { title: string; value: string | number; icon: any }) => (
   <Card className="bg-gray-800 border-gray-700 hover:border-emerald-500 transition-all duration-300 transform hover:scale-105">
@@ -96,6 +99,7 @@ function Dashboard() {
 
   // Calculate average call duration
   const calculateAvgCallDuration = (data: CallData[]): number => {
+    
     const totalDuration = data.reduce((sum, call) => {
       const durationParts = call.call_duration.split(" ")[0];
       return sum + parseInt(durationParts, 10);
@@ -141,7 +145,8 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/callData");
+        const response = await axios.get(GET_CALL_DATA_URL);
+        console.log(response.data);
         setData(response.data);
         performCalculations(response.data);
         const processedData = processData(response.data);
