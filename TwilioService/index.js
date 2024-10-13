@@ -164,22 +164,11 @@ app.all('/gpt', async (req, res) => {
     //     message: cache
     // }))
     const twiml = new VoiceResponse();
-    // twiml.say(`This is ${result}`)
-    new Promise((resolve, reject) => {
-        twiml.say(result)
-        console.log('said');
-        resolve('I want to place an order')
-
-    }).then((result) => {
-        // res.redirect(url.format({
-        //     pathname: '/',
-        //     query: {
-        //         'prompt': result
-        //     }
-        // }));
-        res.redirect('/')
-    })
+    twiml.say(`This is ${result}`)
+    console.log();
+    
     // res.send(twiml.toString())
+    res.redirect('/')
 
 })
 
