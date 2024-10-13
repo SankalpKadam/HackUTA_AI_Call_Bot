@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import "@/index.css";
+import "@src/app.css";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const categories = ["Restaurant", "Healthcare", "Finance", "Travel", "Retail"];

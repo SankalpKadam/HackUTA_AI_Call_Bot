@@ -1,6 +1,5 @@
-import React from 'react';
-import '@/index.css'
-import { Card, CardContent } from "../components/ui/card.tsx";
+import "@src/app.css";
+import { Card, CardContent } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { ArrowUpRight, Phone, Clock, SmilePlus, Bot, ShoppingCart } from 'lucide-react';
 

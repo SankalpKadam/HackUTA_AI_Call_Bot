@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import '@/index.css'
+import '@src/app.css'
 
 // Import your components for the routes
 import HomePage from './pages/HomePage.tsx';
@@ -15,7 +15,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/buinesssetup" element={<BusinessSetup />} />
+          <Route path="/businesssetup" element={<BusinessSetup />} />
         </Routes>
     </Router>
   );

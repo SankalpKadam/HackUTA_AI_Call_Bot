@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Eye, EyeOff } from 'lucide-react'
 // import Link from 'next/link'
 import { Link } from "react-router-dom";
-import './auth-animations.css'  // Import the CSS file
+import "@src/app.css"; // Import the CSS file
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -48,9 +48,11 @@ export default function LoginPage() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
+          <Link to="/businesssetup">
             <Button className="w-full bg-emerald-500 text-white hover:bg-emerald-600 transition-colors duration-300 animate-fade-in-delay-3">
               Login
             </Button>
+          </Link>
             <p className="text-sm text-gray-400 text-center animate-fade-in-delay-3">
               Don't have an account?{" "}
               <Link to="/signup" className="text-emerald-500 hover:underline">
