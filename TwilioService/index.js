@@ -88,7 +88,8 @@ app.all('/', (req, res) => {
                 speechTimeout: 'auto'
             })
         case 'ask-anything-else':
-
+            console.log('anything');
+            
             response.say('Added to the order. Do you want anything else?')
             const anything = response.gather({
                 input: 'speech',
@@ -134,7 +135,7 @@ app.all('/', (req, res) => {
 // app.post()
 app.all('/results', (req, res) => {
     const userData = req.body.SpeechResult.toLowerCase();
-    // console.log(userData);
+    console.log(userData);
     const twiml = new VoiceResponse();
     words = ['burger']
     if (words.every(word => userData.includes(word))) {
