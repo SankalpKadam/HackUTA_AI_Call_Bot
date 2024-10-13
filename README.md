@@ -41,14 +41,60 @@ With **BotKonnect**, businesses can instantly connect with customers through AI-
 
 
 ## 📝 How to Get Started
-1. Clone the repository:  
-   ```bash
-   git clone https://github.com/SankalpKadam/HackUTA_AI_Call_Bot
-2. Set up .env file:
-   Add your Twilio and OpenAI API keys to the .env file.
-3. Run the application:
-   ```bash
-   npm start
+### 0. Clone the repository:  
+```bash
+git clone https://github.com/SankalpKadam/HackUTA_AI_Call_Bot
+```
+
+### 1. Setting up the Frontend
+
+1. Navigate to the frontend directory:
+```bash
+cd frontend/BotConnect/
+```
+
+2.Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+   
+```bash
+   npm run dev
+```
+
+### 2. Setting up the Twilio Service
+1. Navigate to the Twilio service directory:
+```bash
+cd TwilioService/
+```
+
+2. Install the required dependencies:
+```bash
+npm install
+```
+
+3. Ensure you have the OPENAI_API_KEY in your .env file inside the TwilioService/ directory.
+
+4. Add the following line to your .env file:
+```bash
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+5. Start the Twilio service:
+```bash
+node index.js
+```
+
+### 3. Running Call Services
+
+1. In a new terminal window, navigate to the TwilioService/ directory (if you're not already there).
+
+2. Run the following command to start the GPT call service:
+```bash
+node gpt.js
+```
 
 ## 📬 Contributing
 Contributions are welcome! Please fork the repository and submit a pull request. Check out the issues tab for ideas or to report bugs.
