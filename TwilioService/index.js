@@ -3,6 +3,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://sst0557mavs:Hack_UTA_2024@hackuta.q1y43.mongodb.net/?retryWrites=true&w=majority&appName=HackUTA";
 const mongoose = require("mongoose");
 const cors = require('cors')
+const url = require('url')
 
 mongoose
     .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -69,7 +70,12 @@ app.all('/results', (req, res) => {
     words = ['order', 'place']
     if (words.every(word => userData.includes(word))) {
         twiml.say('Yes, what would you like?')
-        res.redirect('/');
+        res.redirect(url.format({
+            pathname:'/gpt',
+            query:{
+                'prompt': userData
+            }
+        }));
     } else {
 
         twiml.say('Could you please repeat, I could not understand?')
@@ -105,7 +111,7 @@ app.all('/gpt', async (req, res) => {
 
     let prompts = ['What do you have on menu?', 'I want to order a cheese pizza', 'Can I have some paneer on it?']
     let final = ''
-    const python = await spawnSync('python', ['./python_scripts/gptScript.py', cache, 'What do you have on menu'])
+    const python = await spawnSync('python', ['./python_scripts/gptScript.py', cache, req.query.prompt])
     let result = python.stdout?.toString()?.trim()
     cache += result
 
