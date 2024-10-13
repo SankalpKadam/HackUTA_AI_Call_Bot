@@ -79,7 +79,6 @@ app.all('/', (req, res) => {
             res.send(response.toString())
             break;
         case 'ask-item':
-            response.say('Do you want anything else?')
             const gatherItem = response.gather({
                 input: 'speech',
                 action: '/item',
@@ -90,6 +89,7 @@ app.all('/', (req, res) => {
             })
         case 'ask-anything-else':
 
+            response.say('Added to the order. Do you want anything else?')
             const anything = response.gather({
                 input: 'speech',
                 action: '/anything',
@@ -99,6 +99,8 @@ app.all('/', (req, res) => {
                 speechTimeout: 'auto'
             })
         case 'confirm-order':
+            response.say('This is your order')
+
             const confirm = response.gather({
                 input: 'speech',
                 action: '/confirm',
@@ -144,8 +146,8 @@ app.all('/results', (req, res) => {
         //         'prompt': 'I want to place an order'
         //     }
         // }));
-        
-        
+
+
         // new Promise((resolve, reject) => {
         //     twiml.say('Yes, what would you like')
         //     console.log('said');
@@ -159,8 +161,8 @@ app.all('/results', (req, res) => {
         //         }
         //     }));
         // })
-    sessions[req.body.From].step = 'ask-anything-else'
-    res.redirect('/')
+        sessions[req.body.From].step = 'ask-anything-else'
+        res.redirect('/')
 
     } else {
 
@@ -171,21 +173,21 @@ app.all('/results', (req, res) => {
     }
 })
 
-app.all('/anything',(req, res)=>{
+app.all('/anything', (req, res) => {
     const userData = req.body.SpeechResult.toLowerCase();
-    
+
     const twiml = new VoiceResponse();
     words = ['yes']
     if (words.every(word => userData.includes(word))) {
-        twiml.say('Added to the order')
+        // twiml.say('Added to the order')
         res.redirect('/')
-    }else{
+    } else {
         sessions[req.body.From].step = 'confirm-order'
         res.redirect('/')
     }
 })
 
-app.all('/confirm',(req,res)=>{
+app.all('/confirm', (req, res) => {
     const twiml = new VoiceResponse();
     twiml.say('Here is your order. Thank you for your order')
     twiml.hangup()
