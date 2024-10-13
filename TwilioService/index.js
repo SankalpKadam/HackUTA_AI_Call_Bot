@@ -2,7 +2,8 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://sst0557mavs:Hack_UTA_2024@hackuta.q1y43.mongodb.net/?retryWrites=true&w=majority&appName=HackUTA";
 const mongoose = require("mongoose");
-
+const cors = require('cors')
+app.use(cors())
 
 mongoose
     .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
