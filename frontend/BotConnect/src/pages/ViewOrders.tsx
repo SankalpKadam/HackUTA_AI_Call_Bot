@@ -22,40 +22,43 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 type Order = {
-	id: string;
-	time: string;
-	customerName: string;
-	items: { name: string; price: number }[];
+  order_id: string;
+  name: string;
+	address: string;
+	items: { item_name: string; quantity:number; price: number }[];
+  order_total: number;
+	order_date: string;
+	order_time: string;
 };
 
 const initialOrders: Order[] = [
-	{
-		id: "123",
-		time: "2023-06-10 14:30",
-		customerName: "Aryan",
-		items: [
-			{ name: "Cheese Burger", price: 15 },
-			{ name: "French Fries", price: 15 },
-		],
-	},
-	{
-		id: "124",
-		time: "2023-06-10 15:00",
-		customerName: "Shashwat",
-		items: [
-			{ name: "Veggie Pizza", price: 20 },
-			{ name: "Salad", price: 10 },
-		],
-	},
-	{
-		id: "125",
-		time: "2023-06-10 15:30",
-		customerName: "Sankalp",
-		items: [
-			{ name: "Chicken Wings", price: 18 },
-			{ name: "Soda", price: 5 },
-		],
-	},
+	// {
+	// 	id: "123",
+	// 	order_date: "2023-06-10 14:30",
+	// 	name: "Aryan",
+	// 	items: [
+	// 		{ name: "Cheese Burger", price: 15 },
+	// 		{ name: "French Fries", price: 15 },
+	// 	],
+	// },
+	// {
+	// 	id: "124",
+	// 	order_date: "2023-06-10 15:00",
+	// 	name: "Shashwat",
+	// 	items: [
+	// 		{ name: "Veggie Pizza", price: 20 },
+	// 		{ name: "Salad", price: 10 },
+	// 	],
+	// },
+	// {
+	// 	id: "125",
+	// 	order_date: "2023-06-10 15:30",
+	// 	name: "Sankalp",
+	// 	items: [
+	// 		{ name: "Chicken Wings", price: 18 },
+	// 		{ name: "Soda", price: 5 },
+	// 	],
+	// },
 	// {
 	// 	id: "126",
 	// 	time: "2023-06-10 14:30",
@@ -183,11 +186,11 @@ export default function ViewOrders() {
 	};
 
 	const completeSelectedOrders = () => {
-		setOrders(orders.filter((order) => !selectedOrders.has(order.id)));
+		setOrders(orders.filter((order) => !selectedOrders.has(order.order_id)));
 		setSelectedOrders(new Set());
 	};
 
-	const calculateTotal = (items: { name: string; price: number }[]) => {
+	const calculateTotal = (items: { item_name: string; quantity:number; price: number }[]) => {
 		const subtotal = items.reduce((sum, item) => sum + item.price, 0);
 		const tax = subtotal * 0.1; // Assuming 10% tax
 		return (subtotal + tax).toFixed(2);
@@ -229,31 +232,33 @@ export default function ViewOrders() {
 						<TableHeader>
 							<TableRow className="bg-gray-800 border-b border-gray-700 ">
 								<TableHead className="text-white w-[50px] py-4"></TableHead>
-								<TableHead className="text-white py-4">Order Time</TableHead>
-								<TableHead className="text-white py-4">Order ID</TableHead>
-								<TableHead className="text-white py-4">Customer Name</TableHead>
-								<TableHead className="text-white text-right py-4">
+								<TableHead className="text-white px-4 py-4">Order Date</TableHead>
+								<TableHead className="text-white px-4 py-4">Order Time</TableHead>
+								<TableHead className="text-white px-4 py-4">Order ID</TableHead>
+								<TableHead className="text-white px-4 py-4">Customer Name</TableHead>
+								<TableHead className="text-white px-5 py-4 text-right">
 									Actions
 								</TableHead>
 							</TableRow>
 						</TableHeader>
 						<TableBody>
-							{orders.map((order) => (
+							{orders.map((order,index) => (
 								<TableRow
-									key={order.id}
+									key={index}
 									className="transition-colors duration-300 hover:bg-gray-950 border-b border-gray-700 last:border-b-0"
 								>
-									<TableCell className="py-4">
+									<TableCell className="px-4 py-4">
 										<Checkbox
-											checked={selectedOrders.has(order.id)}
-											onCheckedChange={() => toggleOrderSelection(order.id)}
+											checked={selectedOrders.has(order.order_id)}
+											onCheckedChange={() => toggleOrderSelection(order.order_id)}
 											className="border-emerald-500 data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500"
 										/>
 									</TableCell>
-									<TableCell className="py-4">{order.time}</TableCell>
-									<TableCell className="py-4">{order.id}</TableCell>
-									<TableCell className="py-4">{order.customerName}</TableCell>
-									<TableCell className="text-right py-4">
+									<TableCell className="px-4 py-4">{new Date(order.order_date).toLocaleDateString()}</TableCell>
+									<TableCell className="px-4 py-4">{order.order_time}</TableCell>
+									<TableCell className="px-4 py-4">{order.order_id}</TableCell>
+									<TableCell className="px-4 py-4">{order.name}</TableCell>
+									<TableCell className="px-5 py-4 text-right">
 										<Button
 											variant="outline"
 											size="sm"
@@ -288,17 +293,25 @@ export default function ViewOrders() {
 				<DialogContent className="bg-gray-800 text-white rounded-xl border border-gray-700">
 					<DialogHeader>
 						<DialogTitle className="text-2xl font-bold">
-							Order #{viewingOrder?.id}
+							Order #{viewingOrder?.order_id}
 						</DialogTitle>
 					</DialogHeader>
 					<div className="mt-4">
+            <div
+								className="flex justify-between items-center py-2"
+							>
+								<span className="w-1/3">Item Name</span>
+								<span className="w-1/3 text-center">Quantity</span>
+								<span className="w-1/3 text-right">Price</span>
+							</div>
 						{viewingOrder?.items.map((item, index) => (
 							<div
 								key={index}
-								className="flex justify-between py-2"
+								className="flex justify-between items-center py-2"
 							>
-								<span>{item.name}</span>
-								<span>${item.price.toFixed(2)}</span>
+								<span className="w-1/3">{item.item_name}</span>
+								<span className="w-1/3 text-center">{item.quantity}</span>
+								<span className="w-1/3 text-right">${item.price.toFixed(2)}</span>
 							</div>
 						))}
 						<div className="border-t border-gray-600 mt-4 pt-4">
@@ -322,7 +335,7 @@ export default function ViewOrders() {
 							onClick={() => {
 								if (viewingOrder) {
 									setOrders(
-										orders.filter((order) => order.id !== viewingOrder.id)
+										orders.filter((order) => order.order_id !== viewingOrder.order_id)
 									);
 									setViewingOrder(null);
 								}
