@@ -15,9 +15,9 @@ const openai = new OpenAI({
 const port = 3000
 const VoiceResponse = require('twilio').twiml.VoiceResponse
 app.all('/', (req, res)=>{
-    console.log(process.env.OPENAI_API_KEY);
+    // console.log(process.env.OPENAI_API_KEY);
     
-    res.type('json')
+    res.type('xml')
     const response = new VoiceResponse();
     // console.log(response);
     const gather = response.gather({
@@ -41,7 +41,7 @@ app.all('/results',(req, res)=>{
     const twiml = new VoiceResponse();
     words = ['order','place']
     if(words.every(word=>userData.includes(word))){
-        twiml.say('Yes, \nwhat would you like?')
+        twiml.say('Yes, what would you like?')
         res.redirect('/');
     }else{
 

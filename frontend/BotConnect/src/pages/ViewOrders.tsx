@@ -48,7 +48,18 @@ export default function ViewOrders() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-8">
-      <h1 className="text-4xl font-bold mb-8">View Orders</h1>
+      <span className="flex justify-start items-center mb-8">
+      <div className="transform transition-all duration-500 hover:scale-110 mr-5 relative top-[2px]">
+						<svg
+							className="w-8 h-8 text-emerald-400 animate-pulse"
+							viewBox="0 0 24 24"
+							fill="currentColor"
+						>
+							<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+						</svg>
+					</div>
+        <h1 className="text-4xl font-bold  animate-fade-in-down">Orders</h1>
+      </span>
       
       <div className="rounded-xl overflow-hidden border border-gray-700">
         <ScrollArea className="h-[calc(100vh-200px)]">
