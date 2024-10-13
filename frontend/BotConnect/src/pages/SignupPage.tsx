@@ -10,6 +10,23 @@ export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false)
 
   return (
+    <>
+			<span className="absolute flex justify-start items-center mb-8 bg-gray-900 text-white p-8 mb-0">
+				<Link to="/">
+					<div className="transform transition-all duration-500 hover:scale-110 mr-5 relative top-[2px]">
+						<svg
+							className="w-8 h-8 text-emerald-400 animate-pulse"
+							viewBox="0 0 24 24"
+							fill="currentColor"
+						>
+							<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+						</svg>
+					</div>
+				</Link>
+				<h1 className="text-4xl font-bold  animate-fade-in-down">
+					We are glad to have you!
+				</h1>
+			</span>
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <Card className="bg-gray-800 border-gray-700">
@@ -70,5 +87,6 @@ export default function SignupPage() {
         </Card>
       </div>
     </div>
+  </>
   )
 }

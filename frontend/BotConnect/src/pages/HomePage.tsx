@@ -6,7 +6,7 @@ export default function HomePage() {
 	return (
 		<div className="min-h-screen bg-gray-900 flex flex-col">
 			{/* Header */}
-			<header className="p-6 flex justify-between items-center">
+			<header className="m-2 p-6 flex justify-between items-center">
 				{/* Logo */}
 				<Link to="/">
 					<div className="transform transition-all duration-500 hover:scale-110">

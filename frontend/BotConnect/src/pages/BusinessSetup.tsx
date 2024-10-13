@@ -74,7 +74,7 @@ export default function BusinessSetup() {
 	return (
 		<div className="min-h-screen bg-gray-900 text-white p-6 relative overflow-hidden">
 			{/* Logo */}
-      <span className="flex justify-start items-center mb-8">
+      <span className="flex justify-start items-center m-2 mb-8">
         <Link to="/">
       <div className="transform transition-all duration-500 hover:scale-110 mr-5 relative top-[2px]">
 						<svg
