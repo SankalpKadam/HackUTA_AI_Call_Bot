@@ -1,5 +1,4 @@
 # BotKonnect 🤖📞
-![GitHub license](https://img.shields.io/github/license/your-username/BotKonnect?color=blue) ![GitHub stars](https://img.shields.io/github/stars/your-username/BotKonnect?style=social) ![GitHub forks](https://img.shields.io/github/forks/your-username/BotKonnect?style=social) ![Twitter Follow](https://img.shields.io/twitter/follow/your-twitter-handle?style=social)
 
 **AI Call Bots for Effortless Customer Interaction** 🚀
 
