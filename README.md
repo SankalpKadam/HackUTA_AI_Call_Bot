@@ -1,6 +1,3 @@
-# BotKonnect 🤖📞
-
-**AI Call Bots for Effortless Customer Interaction** 🚀
 ![image](https://github.com/user-attachments/assets/3818b39e-53bb-437d-a8a0-2d07d77c5b4a)
 
 ## 🌟 Inspiration
