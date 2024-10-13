@@ -146,7 +146,6 @@ function Dashboard() {
         performCalculations(response.data);
         const processedData = processData(response.data);
         setGraphData(processedData);
-        console.log(graphData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
