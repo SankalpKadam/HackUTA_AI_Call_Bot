@@ -1,6 +1,7 @@
 # BotKonnect 🤖📞
 
 **AI Call Bots for Effortless Customer Interaction** 🚀
+![image](https://github.com/user-attachments/assets/3818b39e-53bb-437d-a8a0-2d07d77c5b4a)
 
 ## 🌟 Inspiration
 Waiting on hold is a universal pain—whether it’s calling restaurants, insurance companies, or any other business. BotKonnect aims to **eliminate wait times** and **enhance customer satisfaction** by automating and streamlining customer service with AI-driven call bots!
