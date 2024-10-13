@@ -4,7 +4,7 @@ const uri = "mongodb+srv://sst0557mavs:Hack_UTA_2024@hackuta.q1y43.mongodb.net/?
 const mongoose = require("mongoose");
 const cors = require('cors')
 const url = require('url')
-
+let sessions = {}
 mongoose
     .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("Connected to MongoDB Atlas"))
@@ -46,6 +46,7 @@ const app = express()
 app.use(urlencoded({ extended: false }))
 app.use(cors())
 const OpenAI = require("openai");
+const { twiml } = require('twilio');
 require("dotenv").config();
 
 const openai = new OpenAI({
@@ -54,57 +55,116 @@ const openai = new OpenAI({
 const port = 3000
 const VoiceResponse = require('twilio').twiml.VoiceResponse
 app.all('/', (req, res) => {
-    console.log(process.env.OPENAI_API_KEY);
 
-    res.type('xml')
+    if (!sessions[req.body.From]) {
+        sessions[req.body.From] = { step: 'ask-order' }
+    }
+    // res.type('xml')
     const response = new VoiceResponse();
+    const session = sessions[req.body.From].step
+    switch (session) {
+        case 'ask-order':
+            // console.log(response);
+            const gather = response.gather({
+                input: 'speech',
+                action: '/results',
+                language: 'en-US',
+                hints: 'order',
+                speechModel: 'phone_call',
+                speechTimeout: 'auto'
+            })
+            // response.say('This is from Node js');
+            gather.say('Hi, welcome to the restaurant. What would you like to order?');
+            res.type('xml');
+            res.send(response.toString())
+            break;
+        case 'ask-item':
+            const gatherItem = response.gather({
+                input: 'speech',
+                action: '/item',
+                language: 'en-US',
+                hints: 'order',
+                speechModel: 'phone_call',
+                speechTimeout: 'auto'
+            })
+        case 'ask-anything-else':
+            const anything = response.gather({
+                input: 'speech',
+                action: '/anything',
+                language: 'en-US',
+                hints: 'order',
+                speechModel: 'phone_call',
+                speechTimeout: 'auto'
+            })
+        case 'confirm-order':
+            const confirm = response.gather({
+                input: 'speech',
+                action: '/confirm',
+                language: 'en-US',
+                hints: 'order',
+                speechModel: 'phone_call',
+                speechTimeout: 'auto'
+            })
+        default:
+            response.say('Sorry, I didn’t understand. Please start again.');
+            response.hangup();
+            res.type('text/xml');
+            res.send(response.toString());
+            break;
+    }
     // console.log(response);
-    const gather = response.gather({
-        input: 'speech',
-        action: '/results',
-        language: 'en-US',
-        hints: 'order',
-        speechModel: 'phone_call',
-        speechTimeout: 'auto'
-    })
+    // const gather = response.gather({
+    //     input: 'speech',
+    //     action: '/results',
+    //     language: 'en-US',
+    //     hints: 'order',
+    //     speechModel: 'phone_call',
+    //     speechTimeout: 'auto'
+    // })
     // response.say('This is from Node js');
-    gather.say('Tell me a new order');
+    // gather.say('Tell me a new order');
     // res.send(response.toString());
     // const result = gptReq("What is the capital of India?", openai) 
-    res.send(response.toString())
+    // res.send(response.toString())
 })
 // app.post()
 app.all('/results', (req, res) => {
     // const userData = req.body.SpeechResult.toLowerCase();
     // console.log(userData);
     const twiml = new VoiceResponse();
-    words = ['order', 'place']
-    if (words.every(word => "I want to place an order".includes(word))) {
-        // twiml.say('Yes, what would you like?')
+    words = ['burger']
+    if (words.every(word => "I want to buy a burfer".includes(word))) {
+        twiml.say('Yes, what would you like?')
+        // twiml.gather
         // res.redirect(url.format({
         //     pathname:'/gpt',
         //     query:{
         //         'prompt': 'I want to place an order'
         //     }
         // }));
-        new Promise((resolve, reject) => {
-            twiml.say('Yes, what would you like')
-            console.log('said');
-            resolve('I want to place an order')
+        
+        
+        // new Promise((resolve, reject) => {
+        //     twiml.say('Yes, what would you like')
+        //     console.log('said');
+        //     resolve('I want to place an order')
 
-        }).then((result) => {
-            res.redirect(url.format({
-                pathname: '/gpt',
-                query: {
-                    'prompt': result
-                }
-            }));
-        })
+        // }).then((result) => {
+        //     res.redirect(url.format({
+        //         pathname: '/gpt',
+        //         query: {
+        //             'prompt': result
+        //         }
+        //     }));
+        // })
+
+
+
     } else {
 
         twiml.say('Could you please repeat, I could not understand?')
-        res.send(twiml.toString())
     }
+    res.send(twiml.toString())
 })
 
 async function connectToDatabase() {
@@ -166,7 +226,7 @@ app.all('/gpt', async (req, res) => {
     const twiml = new VoiceResponse();
     twiml.say(`This is ${result}`)
     console.log();
-    
+
     // res.send(twiml.toString())
     res.redirect('/')
 
