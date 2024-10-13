@@ -1,16 +1,15 @@
-
+const { spawnSync } = require('child_process')
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://sst0557mavs:Hack_UTA_2024@hackuta.q1y43.mongodb.net/?retryWrites=true&w=majority&appName=HackUTA";
 const mongoose = require("mongoose");
 const cors = require('cors')
-// app.use(cors())
 
 mongoose
     .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("Connected to MongoDB Atlas"))
     .catch((err) => console.log("Error connecting to MongoDB: ", err));
 
-
+let cache = 'act like a restaurant receptionist. The menu has only items a cheese pizza and butter paneer. I just called you';
 const orderSchema = new mongoose.Schema({
     name: String,
     address: String,
@@ -23,7 +22,7 @@ const orderSchema = new mongoose.Schema({
     ],
     order_total: Number,
     order_date: { type: Date, default: Date.now },
-},{collection:'restaurants'});
+}, { collection: 'restaurants' });
 
 const Order = mongoose.model("restaurant", orderSchema);
 
@@ -86,13 +85,6 @@ async function connectToDatabase() {
 
 // fetch data from mongodb
 app.get('/getData', async (req, res) => {
-    // try {
-    //     const ordersCollection = await connectToDatabase();
-    //     const orders = await ordersCollection.find().toArray();
-    //     res.status(200).json(orders);
-    // } catch (error) {
-    //     res.status(500).json({ error: 'Failed to fetch orders' });
-    // }
     try {
         const orders = await Order.find({});
         res.json(orders);
@@ -101,7 +93,41 @@ app.get('/getData', async (req, res) => {
     }
 })
 
+app.all('/gpt', async (req, res) => {
+    // 1] cache = set gpt to initial restaurant receptionist = 'act like a restaurant receptionist. make up the name and menu. I just called you'.
+    // 2] cache += result 
+    // 3] send cache and user input to python as args
+    // 4] end when we get bye
+    console.log('gpt');
 
+    let cache = 'act like a restaurant receptionist. The menu has only items a cheese pizza and butter paneer. I just called you';
+    // let result = null;
+
+    let prompts = ['What do you have on menu?', 'I want to order a cheese pizza', 'Can I have some paneer on it?']
+    let final = ''
+    const python = await spawnSync('python', ['./python_scripts/gptScript.py', cache, 'What do you have on menu'])
+    let result = python.stdout?.toString()?.trim()
+    cache += result
+
+    // prompts.forEach(async (prompt)=>{
+    //     const python = await spawnSync('python',['./python_scripts/gptScript.py',cache,prompt])
+    //     let result = python.stdout?.toString()?.trim()
+    //     final += result
+    //     if(result){
+    //         cache += prompt
+    //         cache += result
+    //     }
+    //     let error = python.stderr?.toString()?.trim()
+
+    // })
+    // res.send(JSON.stringify({
+    //     message: cache
+    // }))
+    const twiml = new VoiceResponse();
+    twiml.say(result)
+    res.redirect('/')
+
+})
 
 app.listen(port, () => {
     console.log(`server is running on port ${port}`);
