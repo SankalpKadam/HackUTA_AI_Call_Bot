@@ -129,11 +129,11 @@ app.all('/', (req, res) => {
 })
 // app.post()
 app.all('/results', (req, res) => {
-    // const userData = req.body.SpeechResult.toLowerCase();
+    const userData = req.body.SpeechResult.toLowerCase();
     // console.log(userData);
     const twiml = new VoiceResponse();
     words = ['burger']
-    if (words.every(word => "I want to buy a burfer".includes(word))) {
+    if (words.every(word => userData.includes(word))) {
         twiml.say('Yes, what would you like?')
         // twiml.gather
         // res.redirect(url.format({
@@ -157,13 +157,36 @@ app.all('/results', (req, res) => {
         //         }
         //     }));
         // })
-
-
+    sessions[req.body.From].step = 'ask-anything-else'
+    res.redirect('/')
 
     } else {
 
-        twiml.say('Could you please repeat, I could not understand?')
+        twiml.say('We only serve burgers right now. Sorry please call again later.')
+        res.send(twiml.toString())
     }
+})
+
+app.all('/anything',(req, res)=>{
+    const userData = req.body.SpeechResult.toLowerCase();
+    
+    const twiml = new VoiceResponse();
+    words = ['yes']
+    if (words.every(word => userData.includes(word))) {
+        twiml.say('Added to the order')
+        res.redirect('/')
+    }else{
+        sessions[req.body.From].step = 'confirm-order'
+        res.redirect('/')
+    }
+})
+
+app.all('/confirm',(req,res)=>{
+    const twiml = new VoiceResponse();
+    twiml.say('Here is your order. Thank you for your order')
+    twiml.hangup()
+    delete sessions[req.body.From]
+    res.type('xml')
     res.send(twiml.toString())
 })
 
