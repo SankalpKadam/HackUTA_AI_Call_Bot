@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "platinum-factor-437421-e8",
+  "private_key_id": "482788e181b2bc303992387c84c53d1f13d696f2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCu/m2yDOwxVzTB\nLXUw6RyNLko9/k8fnkQZ9ARjMaWplXC9+QfRDOUk5qbsWGSERkvjtfpIN0lrGAuC\nVAPEhCjpIdaecn4h/AgiBtXx4zFMi9puVpz/EAp4oLRGfLUBzZgZYffr/U/FcSLY\njfh9mHpuZWtI+ujhWTE/xBkwekpj9znisNUWWpBudSyteclvGyZoxLeqDYbuzeuh\noUQK7hMTW0m6zPmcOJ5qq00Fbks3Se0N83apeTEPfw/neTQ95EQUJCekItVDWarr\nyeHC7C4MKLY2fpMsLz8lb3Pdy2ZLlNK3sO+F0dvXuOje66wtMeBKA31iF43rtE8t\n5vxDQ08zAgMBAAECggEABdPeRlQs13XOgXJomTDiLQdyHH9oFib4oJ6iOMVx/WRH\nJWRyMLGLvf9aZruI2WjX5STtyVLiBIl/9J6ko3o9PIpOcedhMPOKN8vfexc0UJbF\ntu/2eX4Iwzyi1EgZ5Q36NzouffLpIaujW+/aayBVT3DcMkl80Ohd/gAjUJx59rs6\nXDEu+pjHbiT+mFvvDPG68Ov3s/7GzB0CjhRywzuzYiGx5RDMZuY5eWyvgG2EkzHQ\nPbG37n0lhu4eY2bXtQziRqdEEifmg65Wwlg9PzBHkw63viLZAKfKhLZBHkF+4yLb\n4RdyBueUwbCx0madP8ezmG4cPH52fnd+pIdphIxlgQKBgQDb9KNGuE384YU8qCD9\n1FMexQt5pBq5PV8I4bWlspBGI/c7UricnlUdznd/TOXsKLF34OCXrEF3cpRkc1Nz\nBl47g9JsK7wedrSuCeW/6JK+LjmVBt/0R/CjoIL3DxjP4abEn7fSOpB+gSIWDJsC\n9U2vQFiUJbOjdwr6v5mEjJwHgQKBgQDLq5lpj961z2UHu2NN0Xei7Co+NBtpl+KU\nRIYd4k/FGI2EfmbioMyG7TxQ9meHJcZUCfK3jZnIgClx28+HZvWaW/D+sMQA69zT\n+6NQqasLa+MwVZz2VfzmpbwfYSEQcg2bJhG7mnn//zV3QqJXLoNvt6cyW69lzSnB\nv6Qz+rIQswKBgF8zvdAISckgm5irdMwosGlrBBJ8UwzGYXHor8SuSv/w5TuKDFnN\nti2WheZVlFbpLhcjAFLlvdhDgbMQr5fjs7myzsr/CwdsfbuukQDFW25xd37nYNvM\nn31TJhxlLmob0yDbuKaHrq7ymZxNjHJ1VlB6W1yUDPK9vcTWVU4nxgkBAoGAJtyq\nXCsYisZ096G41Ato8YxwjwfwRxi1IidlE+Sv5eLGdgaMaSfXftNbk/NAU9hQXI69\nYmrBcjGKNvCDS8nIiViLxn1CGQ7oRwaX5fdJ7Nb8NafQWGyV4gizuaUV4wZwNC9y\naMKUDtXKhOQRB+OXLsTzQTefYyRfmFmR4l0uhuMCgYA+ZMGcoDxC2zHKxjJgpd0U\nx9fgpkvTHpkMBRtofWJT2Dw97PRuWIWX55tdfS13Pqodz20kkHHzi1n6jmj1v5x8\nptYyYClCeKvNu9FQXnzBdWzxiBGI8+2pcoFxiwhegSd+5PoQL/8jQ7ZC4tWUunW6\nvtsDoWz/w7NpIL/9ztuyOg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "hackuta@platinum-factor-437421-e8.iam.gserviceaccount.com",
+  "client_id": "100394045679111948291",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/hackuta%40platinum-factor-437421-e8.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
