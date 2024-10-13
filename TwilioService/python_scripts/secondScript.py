@@ -5,6 +5,7 @@ from fastapi import FastAPI, WebSocket
 import os
 from pydantic import BaseModel
 from typing import List
+from openai import AzureOpenAI
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -38,9 +39,35 @@ async def process_openai(websocket: WebSocket):
 
 # Function to call OpenAI
 async def call_openai(prompt: str) -> str:
-    response = openai.Completion.create(
-        model="gpt-3.5-turbo",
-        prompt=prompt,
-        max_tokens=150
+    client = AzureOpenAI(
+        api_key="f3e58d461386493b80a01da24c64e018",
+        # https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#rest-api-versioning
+        api_version="2023-07-01-preview",
+        #api_version="2024-08-06",
+        # https://learn.microsoft.com/en-us/azure/cognitive-services/openai/how-to/create-resource?pivots=web-portal#create-a-resource
+        azure_endpoint="https://llmcopyrightv2.openai.azure.com/",
     )
-    return response.choices[0].text.strip()
+  
+    def prompt_test(prompt):
+        PROMPT_MESSAGES = [
+        {
+            "role": "user",
+            "content": [
+            {
+                "type": "text",
+                "text": prompt
+            }
+            ]
+        }
+        ]
+        params = {
+            "model": "V1",
+            "messages": PROMPT_MESSAGES,
+            "max_tokens": 200,
+            "seed": 33,
+            "temperature": 0,
+            }
+        result = client.chat.completions.create(**params)
+        return result.choices[0].message.content
+    result = prompt_test(f'{prompt}')
+    print(result)
