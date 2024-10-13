@@ -1,6 +1,4 @@
-# BotKonnect 🤖📞
-
-**AI Call Bots for Effortless Customer Interaction** 🚀
+![image](https://github.com/user-attachments/assets/3818b39e-53bb-437d-a8a0-2d07d77c5b4a)
 
 ## 🌟 Inspiration
 Waiting on hold is a universal pain—whether it’s calling restaurants, insurance companies, or any other business. BotKonnect aims to **eliminate wait times** and **enhance customer satisfaction** by automating and streamlining customer service with AI-driven call bots!
@@ -37,13 +35,15 @@ With **BotKonnect**, businesses can instantly connect with customers through AI-
 - **Database**: MongoDB
 
 ## 📸 Screenshots
-![Owner Portal](link-to-screenshot)
-![Call Analysis](link-to-screenshot)
+![image](https://github.com/user-attachments/assets/f9827fb0-fa4d-4482-858b-c6b73b0e1252)
+
+![image](https://github.com/user-attachments/assets/7c582c22-ea94-4dd6-96de-c5c96513db98)
+
 
 ## 📝 How to Get Started
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/your-username/BotKonnect.git
+   git clone https://github.com/SankalpKadam/HackUTA_AI_Call_Bot
 2. Set up .env file:
    Add your Twilio and OpenAI API keys to the .env file.
 3. Run the application:
