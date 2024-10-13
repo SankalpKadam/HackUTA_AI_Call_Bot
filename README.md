@@ -35,8 +35,10 @@ With **BotKonnect**, businesses can instantly connect with customers through AI-
 - **Database**: MongoDB
 
 ## 📸 Screenshots
-![Owner Portal](link-to-screenshot)
-![Call Analysis](link-to-screenshot)
+![image](https://github.com/user-attachments/assets/f9827fb0-fa4d-4482-858b-c6b73b0e1252)
+
+![image](https://github.com/user-attachments/assets/7c582c22-ea94-4dd6-96de-c5c96513db98)
+
 
 ## 📝 How to Get Started
 1. Clone the repository:  
