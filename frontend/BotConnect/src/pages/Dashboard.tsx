@@ -2,6 +2,7 @@ import "@src/app.css";
 import { Card, CardContent } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { ArrowUpRight, Phone, Clock, SmilePlus, Bot, ShoppingCart } from 'lucide-react';
+import { Link } from 'react-router-dom'
 
 const data = [
   { week: 'Week 1', calls: 1000 },
@@ -47,12 +48,17 @@ export default function Dashboard() {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <ActionCard title="Manage Bot Data" icon={Bot} />
-        <ActionCard title="View Orders" icon={ShoppingCart} />
+
+        <Link to="/businesssetup">
+          <ActionCard title="Manage Bot Data" icon={Bot} />
+        </Link>
+        <Link to="/vieworders">
+          <ActionCard title="View Orders" icon={ShoppingCart} />
+        </Link>
       </div>
       
       <Card className="bg-gray-800 border-gray-700 p-6">
-        <h2 className="text-2xl font-bold mb-4">Weekly Call Volume</h2>
+        <h2 className="text-2xl font-bold mb-4 text-white">Weekly Call Volume</h2>
         <div className="h-80 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>

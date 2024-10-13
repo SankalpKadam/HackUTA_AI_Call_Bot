@@ -21,9 +21,9 @@ export default function HomePage() {
 				</Link>
 
 				{/* Login Button */}
-				<Link to="/login">
+				<Link to="/signup">
 					<button className="bg-transparent border border-emerald-400 text-emerald-400 font-semibold py-2 px-4 rounded-md hover:bg-emerald-400 hover:text-gray-900 transition-all duration-300 transform hover:scale-105">
-						Login
+						Sign Up
 					</button>
 				</Link>
 			</header>
@@ -55,13 +55,15 @@ export default function HomePage() {
 						Engage, Support, and Connect Seamlessly with Our Intelligent Voice
 						Assistants
 					</p>
-					<button
-						className="bg-emerald-400 text-gray-900 font-bold py-3 px-8 rounded-md text-lg hover:bg-emerald-300 transition-all duration-300 transform hover:scale-105 animate-fade-in-up flex items-center justify-center mx-auto"
-						style={{ animationDelay: "1s" }}
-					>
-						Get Started
-						<ArrowRight className="ml-2 h-5 w-5" />
-					</button>
+					<Link to="/login">
+						<button
+							className="bg-emerald-400 text-gray-900 font-bold py-3 px-8 rounded-md text-lg hover:bg-emerald-300 transition-all duration-300 transform hover:scale-105 animate-fade-in-up flex items-center justify-center mx-auto"
+							style={{ animationDelay: "1s" }}
+						>
+							Get Started / Login
+							<ArrowRight className="ml-2 h-5 w-5" />
+						</button>
+					</Link>
 				</div>
 			</main>
 		</div>
