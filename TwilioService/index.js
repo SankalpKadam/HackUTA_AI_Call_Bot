@@ -4,6 +4,7 @@ const uri = "mongodb+srv://sst0557mavs:Hack_UTA_2024@hackuta.q1y43.mongodb.net/?
 const mongoose = require("mongoose");
 const cors = require('cors')
 const url = require('url')
+const axios = require('axios');
 let sessions = {}
 mongoose
     .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -265,3 +266,43 @@ app.all('/gpt', async (req, res) => {
 app.listen(port, () => {
     console.log(`server is running on port ${port}`);
 })
+
+async function callAzureOpenAI(prompt) {
+    const promptMessages = [
+        {
+            role: 'user',
+            content: {
+                type: 'text',
+                text: prompt
+            }
+        }
+    ];
+
+    const params = {
+        model: 'V1',
+        messages: promptMessages,
+        max_tokens: 200,
+        temperature: 0.5,
+        seed: 33
+    };
+
+    try {
+        const response = await axios.post(
+            'https://llmcopyrightv2.openai.azure.com/openai/deployments/V1/chat/completions?api-version=2023-07-01-preview',
+            params,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'api-key': process.env.OPENAI_API_KEY
+                }
+            }
+        );
+
+        return response.data.choices[0].message.content;
+    } catch (error) {
+        console.error('Error fetching response from Azure OpenAI:', error);
+        throw error;
+    }
+}
+
+callAzureOpenAI("What is the day today?")
