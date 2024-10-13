@@ -19,7 +19,7 @@ export default function LoginPage() {
 
 	return (
 		<>
-			<span className="absolute flex justify-start items-center mb-8 bg-gray-900 text-white p-8 mb-0">
+			<span className="absolute flex justify-start items-center mb-8 bg-gray-900 text-white p-8">
 				<Link to="/">
 					<div className="transform transition-all duration-500 hover:scale-110 mr-5 relative top-[2px]">
 						<svg
