@@ -27,6 +27,17 @@ const orderSchema = new mongoose.Schema({
 
 const Order = mongoose.model("restaurant", orderSchema);
 
+// Schema and Model for Calls
+const callSchema = new mongoose.Schema({
+    order_id: { type: String, required: true },
+    name: String,
+    phone_number: String,
+    call_start_time: { type: Date, required: true },
+    call_end_time: { type: Date, required: true },
+    call_duration: Number, // in minutes
+  },{collection:'call'});
+  
+const Call = mongoose.model("call", callSchema);
 
 const gptReq = require('./gpt-request').chatReq
 const express = require('express');
@@ -64,23 +75,23 @@ app.all('/', (req, res) => {
 })
 // app.post()
 app.all('/results', (req, res) => {
-    const userData = req.body.SpeechResult.toLowerCase();
-    console.log(userData);
-    const twiml = new VoiceResponse();
-    words = ['order', 'place']
-    if (words.every(word => userData.includes(word))) {
-        twiml.say('Yes, what would you like?')
+    // const userData = req.body.SpeechResult.toLowerCase();
+    // console.log(userData);
+    // const twiml = new VoiceResponse();
+    // words = ['order', 'place']
+    // if (words.every(word => userData.includes(word))) {
+        // twiml.say('Yes, what would you like?')
         res.redirect(url.format({
             pathname:'/gpt',
             query:{
-                'prompt': userData
+                'prompt': 'I want to place an order'
             }
         }));
-    } else {
+    // } else {
 
-        twiml.say('Could you please repeat, I could not understand?')
-        res.send(twiml.toString())
-    }
+    //     twiml.say('Could you please repeat, I could not understand?')
+    //     res.send(twiml.toString())
+    // }
 })
 
 async function connectToDatabase() {
@@ -98,6 +109,16 @@ app.get('/getData', async (req, res) => {
         res.status(500).send("Error fetching orders: " + err);
     }
 })
+
+app.get('/callData',async (req, res)=>{
+    try {
+        const orders = await Call.find({});
+        res.json(orders);
+    } catch (err) {
+        res.status(500).send("Error fetching orders: " + err);
+    }
+})
+
 
 app.all('/gpt', async (req, res) => {
     // 1] cache = set gpt to initial restaurant receptionist = 'act like a restaurant receptionist. make up the name and menu. I just called you'.
@@ -129,8 +150,9 @@ app.all('/gpt', async (req, res) => {
     // res.send(JSON.stringify({
     //     message: cache
     // }))
-    const twiml = new VoiceResponse();
-    twiml.say(result)
+    // const twiml = new VoiceResponse();
+    // twiml.say(`This is ${result}`)
+    res.send()
     res.redirect('/')
 
 })
